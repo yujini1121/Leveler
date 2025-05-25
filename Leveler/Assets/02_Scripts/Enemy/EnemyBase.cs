@@ -12,7 +12,7 @@ public class EnemyBase : MonoBehaviour
         Attack,
         Cooldown
     }
-    State curState = State.Roaming;
+    //State curState = State.Roaming;
 
     void Start()
     {
