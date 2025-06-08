@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         soundManager = GetComponent<PlayerSoundManager>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // 이동 입력
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -40,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+
+        // 수평 이동
+        Vector2 velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+        rb.velocity = velocity;
 
         #region 사운드 재생
         // 점프 키 누르면 점프 사운드 재생
@@ -69,12 +73,5 @@ public class PlayerMovement : MonoBehaviour
             soundManager.StopWalk();
         }
         #endregion
-    }
-
-    void FixedUpdate()
-    {
-        // 수평 이동
-        Vector2 velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
-        rb.velocity = velocity;
     }
 }
