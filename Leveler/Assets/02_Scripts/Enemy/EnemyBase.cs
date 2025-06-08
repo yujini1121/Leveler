@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEditor;
 
+public interface IEnemyState
+{
+    void Enter();
+    void Update();
+    void Exit();
+}
+
 public enum EnemyStateType { Idle, Patrol, Chase, Attack }
 
 public class EnemyBase : MonoBehaviour
