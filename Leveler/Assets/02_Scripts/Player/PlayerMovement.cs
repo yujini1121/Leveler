@@ -17,13 +17,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private bool isGrounded;
 
-    // 사운드
     private PlayerSoundManager soundManager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // 사운드
         soundManager = GetComponent<PlayerSoundManager>();
     }
 
@@ -42,8 +41,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        // 사운드
-
+        #region 사운드 재생
         // 점프 키 누르면 점프 사운드 재생
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -70,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         {
             soundManager.StopWalk();
         }
-
+        #endregion
     }
 
     void FixedUpdate()
