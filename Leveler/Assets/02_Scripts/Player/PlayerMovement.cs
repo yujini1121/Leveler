@@ -17,9 +17,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private bool isGrounded;
 
+    // 사운드
+    private PlayerSoundManager soundManager;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // 사운드
+        soundManager = GetComponent<PlayerSoundManager>();
     }
 
     void Update()
@@ -36,6 +41,36 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+
+        // 사운드
+
+        // 점프 키 누르면 점프 사운드 재생
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            soundManager.PlayJump();
+        }
+
+        // 공격 키 눌렀을 때 공격1 사운드
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            soundManager.PlayAttack1();
+        }
+
+        // 왼쪽 쉬프트 누르면 방어 사운드
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            soundManager.PlayDefense();
+        }
+
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && isGrounded)
+        {
+            soundManager.PlayWalk();
+        }
+        else
+        {
+            soundManager.StopWalk();
+        }
+
     }
 
     void FixedUpdate()
