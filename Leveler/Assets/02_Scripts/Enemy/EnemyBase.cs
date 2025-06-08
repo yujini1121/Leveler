@@ -14,18 +14,22 @@ public class EnemyBase : MonoBehaviour
     public EnemyStateType currentStateType;
     private IEnemyState currentState;
 
-    public Transform[] patrolPoints;
+    public Rigidbody2D rb;
+
     public Transform player;
+    public float patrolRange = 3f;
     public float chaseRange = 5f;
     public float attackRange = 2f;
     public float moveSpeed = 2f;
 
-    public Rigidbody2D rb;
-
+    public Vector3 initialPosition;
     private Dictionary<EnemyStateType, IEnemyState> stateMap;
 
     void Start()
     {
+        initialPosition = transform.position;
+        initialPosition.y = 2f;
+
         stateMap = new Dictionary<EnemyStateType, IEnemyState>()
         {
             { EnemyStateType.Idle, new IdleState(this) },
@@ -76,6 +80,14 @@ public class EnemyBase : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (player == null) return;
+
+        // Patrol Range
+        Handles.color = Color.yellow;
+        Vector3 left = initialPosition - Vector3.right * patrolRange;
+        Vector3 right = initialPosition + Vector3.right * patrolRange;
+        Handles.DrawLine(left, right);
+        Handles.DrawSolidDisc(left, Vector3.forward, 0.1f);
+        Handles.DrawSolidDisc(right, Vector3.forward, 0.1f);
 
         // Chase Range
         Handles.color = Color.blue;

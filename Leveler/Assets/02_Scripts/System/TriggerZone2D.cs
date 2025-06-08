@@ -7,11 +7,6 @@ public class TriggerZone2D : MonoBehaviour
 
     [SerializeField] private GameBalancer gameBalancer;
 
-    private void Start()
-    {
-        Debug.Log("гоюл");
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
