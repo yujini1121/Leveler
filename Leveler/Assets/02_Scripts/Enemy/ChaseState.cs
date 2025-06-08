@@ -13,7 +13,7 @@ public class ChaseState : IEnemyState
         enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.player.position, enemy.moveSpeed * Time.deltaTime);
 
         float dist = enemy.GetDistanceToPlayer();
-        if (dist < enemy.attackRange)
+        if (dist < enemy.attackRange + 1f)
             enemy.SwitchState(EnemyStateType.Attack);
         else if (dist > enemy.chaseRange)
             enemy.SwitchState(EnemyStateType.Patrol);

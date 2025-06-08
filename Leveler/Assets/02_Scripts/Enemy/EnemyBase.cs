@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using UnityEditor;
 
 public enum EnemyStateType { Idle, Patrol, Chase, Attack }
 
@@ -33,7 +34,7 @@ public class EnemyBase : MonoBehaviour
             { EnemyStateType.Attack, new AttackState(this) }
         };
 
-        SwitchState(EnemyStateType.Patrol);
+        SwitchState(EnemyStateType.Idle);
     }
 
     void Update()
@@ -57,5 +58,31 @@ public class EnemyBase : MonoBehaviour
     public void DebugForceState(EnemyStateType newState)
     {
         SwitchState(newState);
+        Debug.Log($"[Debug] 강제로 상태 전환됨 → {newState}");
+    }
+
+    [ContextMenu("Force To Idle")]
+    public void Debug_ForceIdle() => SwitchState(EnemyStateType.Idle);
+
+    [ContextMenu("Force To Patrol")]
+    public void Debug_ForcePatrol() => SwitchState(EnemyStateType.Patrol);
+
+    [ContextMenu("Force To Chase")]
+    public void Debug_ForceChase() => SwitchState(EnemyStateType.Chase);
+
+    [ContextMenu("Force To Attack")]
+    public void Debug_ForceAttack() => SwitchState(EnemyStateType.Attack);
+
+    private void OnDrawGizmos()
+    {
+        if (player == null) return;
+
+        // Chase Range
+        Handles.color = Color.blue;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, chaseRange);
+
+        // Attack Range
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
     }
 }
