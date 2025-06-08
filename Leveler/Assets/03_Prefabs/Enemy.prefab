@@ -201,7 +201,7 @@ MonoBehaviour:
   chaseRange: 8
   attackRange: 2
   moveSpeed: 3
-  initialPosition: {x: 5.5, y: 0, z: 0}
+  initialPosition: {x: 5.5, y: 1, z: 0}
 --- !u!1 &8504019445519766246
 GameObject:
   m_ObjectHideFlags: 0

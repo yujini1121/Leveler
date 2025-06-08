@@ -59,6 +59,7 @@ public class EnemyBase : MonoBehaviour
         return Vector2.Distance(transform.position, player.position); 
     }
 
+    #region Debug
     public void DebugForceState(EnemyStateType newState)
     {
         SwitchState(newState);
@@ -76,7 +77,8 @@ public class EnemyBase : MonoBehaviour
 
     [ContextMenu("Force To Attack")]
     public void Debug_ForceAttack() => SwitchState(EnemyStateType.Attack);
-
+    #endregion
+    #region Draw Scene View Only
     private void OnDrawGizmos()
     {
         if (player == null) return;
@@ -97,4 +99,5 @@ public class EnemyBase : MonoBehaviour
         Handles.color = Color.red;
         Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
     }
+    #endregion
 }
