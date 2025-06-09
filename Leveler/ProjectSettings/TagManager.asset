@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,10 @@ TagManager:
     locked: 0
   - name: Map Layer
     uniqueID: 1126182925
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 1041591539
+    locked: 0
+  - name: Player
+    uniqueID: 369557993
     locked: 0
