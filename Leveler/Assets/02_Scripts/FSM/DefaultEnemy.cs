@@ -2,44 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class DefaultEnemy : MonoBehaviour
 {
     [System.Serializable]
     public class EnemyStatus
     {
-        //Status
         public float moveSpeed = 2f;
         public float timer = 0f;
-
-        //Idle
-        public float idleTime;
-
-        //Attack
-        public float attackCooldown = 1.5f;
-        public float attackRange = 2f;
-
-        //Chase
-        public float chaseRange = 5f;
-
-        //Patrol
-        public Vector3 leftPoint;
-        public Vector3 rightPoint;
-        public float waitDuration = 1f;
-        public int moveDir = 0;
     }
 
     [System.Serializable]
     public class IdleStateOption
     {
-
+        public float idleTime;
     }
-    
+
+    [System.Serializable]
+    public class AttackStateOption
+    {
+        public float attackCooldown = 1.5f;
+        public float attackRange = 2f;
+    }
+
+    [System.Serializable]
+    public class ChaseStateOption
+    {
+        public float chaseRange = 5f;
+    }
+
+    [System.Serializable]
+    public class PatrolStateOption
+    {
+        public float patrolRange = 3f;
+        [HideInInspector] public Vector3 leftPoint;
+        [HideInInspector] public Vector3 rightPoint;
+        public bool movingRight = true;
+    }
+
     private FSM<DefaultEnemy, StateType> _fsm;
 
     public Rigidbody2D rb;
     public Transform player;
+
     public EnemyStatus enemyStatus;
+    public IdleStateOption idleOption;
+    public AttackStateOption attackOption;
+    public ChaseStateOption chaseOption;
+    public PatrolStateOption patrolOption;
 
     [Space(10)] public Vector3 initialPosition;
 
@@ -47,7 +58,8 @@ public class DefaultEnemy : MonoBehaviour
     {
         initialPosition = transform.position;
         initialPosition.y = 2f;
-
+        patrolOption.leftPoint = initialPosition - Vector3.right * patrolOption.patrolRange;
+        patrolOption.rightPoint = initialPosition + Vector3.right * patrolOption.patrolRange;
         _fsm = new FSM<DefaultEnemy, StateType>();
 
         var stateDict = new Dictionary<StateType, BaseState<DefaultEnemy>>
@@ -79,19 +91,19 @@ public class DefaultEnemy : MonoBehaviour
 
         // Patrol Range
         Handles.color = Color.yellow;
-        Vector3 left = initialPosition + enemyStatus.leftPoint;
-        Vector3 right = initialPosition + enemyStatus.rightPoint;
+        Vector3 left = initialPosition - Vector3.right * patrolOption.patrolRange;
+        Vector3 right = initialPosition + Vector3.right * patrolOption.patrolRange;
         Handles.DrawLine(left, right);
         Handles.DrawSolidDisc(left, Vector3.forward, 0.1f);
         Handles.DrawSolidDisc(right, Vector3.forward, 0.1f);
 
         // Chase Range
         Handles.color = Color.blue;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, enemyStatus.chaseRange);
+        Handles.DrawWireDisc(transform.position, Vector3.forward, chaseOption.chaseRange);
 
         // Attack Range
         Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, enemyStatus.attackRange);
+        Handles.DrawWireDisc(transform.position, Vector3.forward, attackOption.attackRange);
     }
     #endregion
 }

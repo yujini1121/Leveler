@@ -20,12 +20,12 @@ public enum StateType
 
 public abstract class BaseState<T> : IBaseState
 {
-    protected T _target;
+    protected T _context;
     protected FSM<T, StateType> _fsm;
 
-    protected BaseState(T target, FSM<T, StateType> fsm)
+    protected BaseState(T context, FSM<T, StateType> fsm)
     {
-        _target = target;
+        _context = context;
         _fsm = fsm;
     }
 
