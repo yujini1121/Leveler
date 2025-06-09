@@ -29,6 +29,8 @@ public class EnemyBase : MonoBehaviour
     public float attackRange = 2f;
     public float moveSpeed = 2f;
 
+    public float idleTime;
+
     public Vector3 initialPosition;
     private Dictionary<EnemyStateType, IEnemyState> stateMap;
 
