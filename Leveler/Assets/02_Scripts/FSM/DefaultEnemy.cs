@@ -29,6 +29,12 @@ public class DefaultEnemy : MonoBehaviour
         public int moveDir = 0;
     }
 
+    [System.Serializable]
+    public class IdleStateOption
+    {
+
+    }
+    
     private FSM<DefaultEnemy, StateType> _fsm;
 
     public Rigidbody2D rb;
