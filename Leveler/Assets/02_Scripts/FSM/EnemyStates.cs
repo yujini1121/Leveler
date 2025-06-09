@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace EnemyState
 {
-    public class IdleState : BaseState<TestMonster>
+    public class IdleState : BaseState<DefaultEnemy>
     {
-        public IdleState(TestMonster target, FSM<TestMonster, StateType> fsm) : base(target, fsm) {}
+        public IdleState(DefaultEnemy target, FSM<DefaultEnemy, StateType> fsm) : base(target, fsm) {}
 
         public override void Enter()
         {
@@ -13,7 +13,7 @@ namespace EnemyState
 
         public override void Excute()
         {
-            if (_target.GetDistanceToPlayer() < _target.chaseRange)
+            if (_target.GetDistanceToPlayer() < _target.enemyStatus.chaseRange)
                 _fsm.ChangeState(StateType.Chase);
             else //if (timer >= idleTime)
                 _fsm.ChangeState(StateType.Patrol);
@@ -25,9 +25,9 @@ namespace EnemyState
         }
     }
 
-    public class AttackState : BaseState<TestMonster>
+    public class AttackState : BaseState<DefaultEnemy>
     {
-        public AttackState(TestMonster target, FSM<TestMonster, StateType> fsm) : base(target, fsm) { }
+        public AttackState(DefaultEnemy target, FSM<DefaultEnemy, StateType> fsm) : base(target, fsm) { }
 
         public override void Enter()
         {
@@ -45,9 +45,9 @@ namespace EnemyState
         }
     }
 
-    public class PatrolState : BaseState<TestMonster>
+    public class PatrolState : BaseState<DefaultEnemy>
     {
-        public PatrolState(TestMonster target, FSM<TestMonster, StateType> fsm) : base(target, fsm) { }
+        public PatrolState(DefaultEnemy target, FSM<DefaultEnemy, StateType> fsm) : base(target, fsm) { }
 
         public override void Enter()
         {
@@ -65,9 +65,9 @@ namespace EnemyState
         }
     }
 
-    public class ChaseState : BaseState<TestMonster>
+    public class ChaseState : BaseState<DefaultEnemy>
     {
-        public ChaseState(TestMonster target, FSM<TestMonster, StateType> fsm) : base(target, fsm) { }
+        public ChaseState(DefaultEnemy target, FSM<DefaultEnemy, StateType> fsm) : base(target, fsm) { }
 
         public override void Enter()
         {

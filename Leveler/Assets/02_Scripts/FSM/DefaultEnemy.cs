@@ -3,28 +3,48 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class TestMonster : MonoBehaviour
+public class DefaultEnemy : MonoBehaviour
 {
-    private FSM<TestMonster, StateType> _fsm;
+    [System.Serializable]
+    public class EnemyStatus
+    {
+        //Status
+        public float moveSpeed = 2f;
+        public float timer = 0f;
+
+        //Idle
+        public float idleTime;
+
+        //Attack
+        public float attackCooldown = 1.5f;
+        public float attackRange = 2f;
+
+        //Chase
+        public float chaseRange = 5f;
+
+        //Patrol
+        public Vector3 leftPoint;
+        public Vector3 rightPoint;
+        public float waitDuration = 1f;
+        public int moveDir = 0;
+    }
+
+    private FSM<DefaultEnemy, StateType> _fsm;
 
     public Rigidbody2D rb;
-
     public Transform player;
-    public float patrolRange = 3f;
-    public float chaseRange = 5f;
-    public float attackRange = 2f;
-    public float moveSpeed = 2f;
+    public EnemyStatus enemyStatus;
 
-    public Vector3 initialPosition;
+    [Space(10)] public Vector3 initialPosition;
 
     private void Start()
     {
         initialPosition = transform.position;
         initialPosition.y = 2f;
 
-        _fsm = new FSM<TestMonster, StateType>();
+        _fsm = new FSM<DefaultEnemy, StateType>();
 
-        var stateDict = new Dictionary<StateType, BaseState<TestMonster>>
+        var stateDict = new Dictionary<StateType, BaseState<DefaultEnemy>>
         {
             { StateType.Idle, new EnemyState.IdleState(this, _fsm) },
             { StateType.Attack, new EnemyState.AttackState(this, _fsm) },
@@ -53,19 +73,19 @@ public class TestMonster : MonoBehaviour
 
         // Patrol Range
         Handles.color = Color.yellow;
-        Vector3 left = initialPosition - Vector3.right * patrolRange;
-        Vector3 right = initialPosition + Vector3.right * patrolRange;
+        Vector3 left = initialPosition + enemyStatus.leftPoint;
+        Vector3 right = initialPosition + enemyStatus.rightPoint;
         Handles.DrawLine(left, right);
         Handles.DrawSolidDisc(left, Vector3.forward, 0.1f);
         Handles.DrawSolidDisc(right, Vector3.forward, 0.1f);
 
         // Chase Range
         Handles.color = Color.blue;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, chaseRange);
+        Handles.DrawWireDisc(transform.position, Vector3.forward, enemyStatus.chaseRange);
 
         // Attack Range
         Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
+        Handles.DrawWireDisc(transform.position, Vector3.forward, enemyStatus.attackRange);
     }
     #endregion
 }
