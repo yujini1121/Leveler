@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4096773427430386133}
   - component: {fileID: -8178759354291006943}
   - component: {fileID: -3821818290855872322}
+  - component: {fileID: -3464518066404759110}
   m_Layer: 0
   m_Name: Respawn
   m_TagString: Untagged
@@ -143,4 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890ed397e1164ac448b81da94257a6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 9088279547692110083, guid: d50781987f287634e92cdbf23b886da1, type: 3}
+--- !u!114 &-3464518066404759110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2801736850233975293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0186d46dd8bd41d4b90f1e36b3c495dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
