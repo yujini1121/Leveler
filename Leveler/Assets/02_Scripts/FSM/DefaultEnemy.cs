@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 public class DefaultEnemy : MonoBehaviour
 {
@@ -60,8 +59,8 @@ public class DefaultEnemy : MonoBehaviour
         initialPosition.y = 2f;
         patrolOption.leftPoint = initialPosition - Vector3.right * patrolOption.patrolRange;
         patrolOption.rightPoint = initialPosition + Vector3.right * patrolOption.patrolRange;
-        _fsm = new FSM<DefaultEnemy, StateType>();
 
+        _fsm = new FSM<DefaultEnemy, StateType>();
         var stateDict = new Dictionary<StateType, BaseState<DefaultEnemy>>
         {
             { StateType.Idle, new EnemyState.IdleState(this, _fsm) },
@@ -69,7 +68,6 @@ public class DefaultEnemy : MonoBehaviour
             { StateType.Chase, new EnemyState.ChaseState(this, _fsm) },
             { StateType.Patrol, new EnemyState.PatrolState(this, _fsm) }
         };
-
         _fsm.SetStates(stateDict);
         _fsm.ChangeState(StateType.Idle);
     }
