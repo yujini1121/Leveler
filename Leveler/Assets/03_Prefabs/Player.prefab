@@ -78,6 +78,8 @@ GameObject:
   - component: {fileID: 7775687016403126933}
   - component: {fileID: 1025917201726151296}
   - component: {fileID: 4957834774811064731}
+  - component: {fileID: -2041023280695439729}
+  - component: {fileID: -7775229667315340056}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -446,3 +448,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2041023280695439729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3364012833326288941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea52bf7b56ab87c4b9cc1f9f47de8616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPoint: {fileID: 6131021030101394134, guid: 7c5f4832bbb76b94fbbdf854942a5d1a, type: 3}
+  goalTag: Goal
+--- !u!114 &-7775229667315340056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3364012833326288941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07bff0b072c052f40b3a38490991c36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
