@@ -14,6 +14,7 @@ public class PlayerSoundManager : MonoBehaviour
     public AudioClip attack2Clip;
     public AudioClip walkClip;
     public AudioClip defenseClip;
+    public AudioClip playerDeathClip;
 
     public void PlayJump()
     {
@@ -33,6 +34,11 @@ public class PlayerSoundManager : MonoBehaviour
     public void PlayDefense()
     {
         PlayEffect(defenseClip);
+    }
+
+    public void PlayDeath()
+    {
+        PlayEffect(playerDeathClip);
     }
 
     //걷기 재생 (반복)

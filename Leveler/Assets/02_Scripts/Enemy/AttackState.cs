@@ -6,6 +6,7 @@ public class AttackState : IEnemyState
     private float attackCooldown = 1.5f;
     private float timer = 0f;
 
+
     public AttackState(EnemyBase enemy) => this.enemy = enemy;
 
     public void Enter() => timer = 0f;
@@ -20,6 +21,7 @@ public class AttackState : IEnemyState
         if (timer >= attackCooldown)
         {
             Debug.Log("Attack!");
+            enemy.soundController?.PlayAttackSound(); // »ç¿îµå
             timer = 0f;
         }
     }

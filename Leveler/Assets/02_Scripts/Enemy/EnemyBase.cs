@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEditor;
 
+
 public interface IEnemyState
 {
     void Enter();
@@ -33,6 +34,8 @@ public class EnemyBase : MonoBehaviour
 
     public Vector3 initialPosition;
     private Dictionary<EnemyStateType, IEnemyState> stateMap;
+
+    public EnemySoundController soundController; // »ç¿îµå
 
     void Start()
     {
