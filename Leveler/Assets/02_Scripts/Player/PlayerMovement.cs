@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private bool isGrounded;
+    private bool isDead = false; //죽었을때 사운드 임시코드
 
     private PlayerSoundManager soundManager;
 
@@ -67,6 +68,22 @@ public class PlayerMovement : MonoBehaviour
         {
             soundManager?.StopWalk();
         }
+
+        if (Input.GetKeyDown(KeyCode.K)) // 죽었을때 사운드인데 테스트용 소리가 나는지
+        {
+            PlayDeathSound();
+        }
+
         #endregion
+    }
+
+    public void PlayDeathSound()
+    {
+        if (!isDead)
+        {
+            isDead = true;  // 죽음 상태로 변경
+            soundManager?.PlayDeath();
+            Debug.Log("[Player] 죽음 사운드 재생");
+        }
     }
 }

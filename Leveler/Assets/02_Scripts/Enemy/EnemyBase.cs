@@ -112,4 +112,18 @@ public class EnemyBase : MonoBehaviour
         Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
     }
     #endregion
+
+    // 사운드
+    public void PlayDeathSoundOnly()
+    {
+        if (soundController != null)
+        {
+            soundController.PlayDeathSound();
+            Debug.Log("[Enemy] 죽음 사운드 재생됨");
+        }
+        else
+        {
+            Debug.LogWarning("[Enemy] 사운드 컨트롤러가 연결되지 않았습니다.");
+        }
+    }
 }
