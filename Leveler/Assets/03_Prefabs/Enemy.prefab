@@ -196,11 +196,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStateType: 0
   rb: {fileID: 2137485766672617550}
-  player: {fileID: 0}
+  player: {fileID: 9088279547692110083, guid: d50781987f287634e92cdbf23b886da1, type: 3}
   patrolRange: 5
   chaseRange: 8
   attackRange: 2
   moveSpeed: 3
+  idleTime: 0
   initialPosition: {x: 5.5, y: 1, z: 0}
 --- !u!1 &8504019445519766246
 GameObject:
