@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class ExplosionEnemy : DefaultEnemy
 {
-    void Start()
+    public override void AttackAction()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        Debug.Log("ÀÚÆø!!! Æã!!!!!");
     }
 }

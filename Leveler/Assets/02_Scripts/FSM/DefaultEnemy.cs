@@ -40,7 +40,7 @@ public class DefaultEnemy : MonoBehaviour
         public bool movingRight = true;
     }
 
-    private FSM<DefaultEnemy, StateType> _fsm;
+    protected FSM<DefaultEnemy, StateType> _fsm;
 
     public Rigidbody2D rb;
     public Transform player;
@@ -53,10 +53,12 @@ public class DefaultEnemy : MonoBehaviour
 
     [Space(10)] public Vector3 initialPosition;
 
-    private void Start()
+    [SerializeField] public StateType currentState;
+
+    protected void Start()
     {
-        initialPosition = transform.position;
-        initialPosition.y = 2f;
+        //initialPosition = transform.position;
+        //initialPosition.y = 2f;
         patrolOption.leftPoint = initialPosition - Vector3.right * patrolOption.patrolRange;
         patrolOption.rightPoint = initialPosition + Vector3.right * patrolOption.patrolRange;
 
@@ -72,7 +74,7 @@ public class DefaultEnemy : MonoBehaviour
         _fsm.ChangeState(StateType.Idle);
     }
 
-    private void Update()
+    protected void Update()
     {
         _fsm.Update();
     }
@@ -82,8 +84,13 @@ public class DefaultEnemy : MonoBehaviour
         return Vector2.Distance(transform.position, player.position);
     }
 
+    public virtual void AttackAction()
+    {
+        Debug.Log("°ø°Ý! ¾å¾åÆÜÆÜ");
+    }
+
     #region Draw Scene View Only
-    private void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
         if (player == null) return;
 

@@ -8,6 +8,8 @@ namespace EnemyState
 
         public override void Enter()
         {
+            _context.currentState = StateType.Idle;
+
             _context.enemyStatus.timer = 0f;
         }
 
@@ -23,7 +25,6 @@ namespace EnemyState
 
         public override void Exit()
         {
-
         }
     }
 
@@ -33,6 +34,8 @@ namespace EnemyState
 
         public override void Enter()
         {
+            _context.currentState = StateType.Attack;
+
             _context.enemyStatus.timer = 0f;
         }
 
@@ -43,7 +46,7 @@ namespace EnemyState
 
             if (_context.enemyStatus.timer >= _context.attackOption.attackCooldown)
             {
-                Debug.Log("Attack!");
+                _context.AttackAction();
                 _context.enemyStatus.timer = 0f;
             }
 
@@ -52,7 +55,6 @@ namespace EnemyState
 
         public override void Exit()
         {
-
         }
     }
 
@@ -62,6 +64,7 @@ namespace EnemyState
 
         public override void Enter()
         {
+            _context.currentState = StateType.Patrol;
         }
 
         public override void Excute()
@@ -86,7 +89,6 @@ namespace EnemyState
 
         public override void Exit()
         {
-
         }
     }
 
@@ -96,7 +98,7 @@ namespace EnemyState
 
         public override void Enter()
         {
-
+            _context.currentState = StateType.Chase;
         }
 
         public override void Excute()
@@ -114,7 +116,6 @@ namespace EnemyState
 
         public override void Exit()
         {
-
         }
     }
 }
