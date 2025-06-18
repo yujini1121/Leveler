@@ -13,8 +13,6 @@ public class PatrolState : IEnemyState
     private float waitTimer = 0f;
     private float waitDuration = 1f;
 
-    private bool reenteredFromChase = false;
-
     public PatrolState(EnemyBase enemy)
     {
         this.enemy = enemy;
@@ -29,7 +27,6 @@ public class PatrolState : IEnemyState
         // Chase → Patrol 전환 시 1초 멈춤
         subState = PatrolSubState.Waiting;
         waitTimer = 0f;
-        reenteredFromChase = true;
     }
 
     public void Update()
