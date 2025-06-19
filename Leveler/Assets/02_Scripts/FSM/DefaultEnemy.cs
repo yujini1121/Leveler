@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class DefaultEnemy : MonoBehaviour
 {
@@ -23,6 +26,7 @@ public class DefaultEnemy : MonoBehaviour
     {
         public float attackCooldown = 1.5f;
         public float attackRange = 2f;
+        public int damage = 10;
     }
 
     [System.Serializable]
@@ -52,13 +56,13 @@ public class DefaultEnemy : MonoBehaviour
     public PatrolStateOption patrolOption;
 
     [Space(10)] public Vector3 initialPosition;
-
     [SerializeField] public StateType currentState;
+
+    // ★ Animator 연결 필드 추가
+    public Animator animator;
 
     protected void Start()
     {
-        //initialPosition = transform.position;
-        //initialPosition.y = 2f;
         patrolOption.leftPoint = initialPosition - Vector3.right * patrolOption.patrolRange;
         patrolOption.rightPoint = initialPosition + Vector3.right * patrolOption.patrolRange;
 
@@ -86,15 +90,28 @@ public class DefaultEnemy : MonoBehaviour
 
     public virtual void AttackAction()
     {
-        Debug.Log("공격! 얍얍퍽퍽");
+        Debug.Log("기본 공격 실행됨!");
     }
 
-    #region Draw Scene View Only
+    protected void PerformMeleeAttack()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, attackOption.attackRange, LayerMask.GetMask("Player"));
+        if (hit != null)
+        {
+            PlayerHealth target = hit.GetComponent<PlayerHealth>();
+            if (target != null)
+            {
+                target.TakeDamage(attackOption.damage);
+                Debug.Log($"[Enemy] 공격 성공! 플레이어에게 {attackOption.damage} 데미지");
+            }
+        }
+    }
+
+#if UNITY_EDITOR
     protected void OnDrawGizmos()
     {
         if (player == null) return;
 
-        // Patrol Range
         Handles.color = Color.yellow;
         Vector3 left = initialPosition - Vector3.right * patrolOption.patrolRange;
         Vector3 right = initialPosition + Vector3.right * patrolOption.patrolRange;
@@ -102,13 +119,17 @@ public class DefaultEnemy : MonoBehaviour
         Handles.DrawSolidDisc(left, Vector3.forward, 0.1f);
         Handles.DrawSolidDisc(right, Vector3.forward, 0.1f);
 
-        // Chase Range
         Handles.color = Color.blue;
         Handles.DrawWireDisc(transform.position, Vector3.forward, chaseOption.chaseRange);
 
-        // Attack Range
         Handles.color = Color.red;
         Handles.DrawWireDisc(transform.position, Vector3.forward, attackOption.attackRange);
     }
-    #endregion
+
+    protected void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackOption.attackRange);
+    }
+#endif
 }

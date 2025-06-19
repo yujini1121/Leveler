@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEditor;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public interface IEnemyState
 {
@@ -17,7 +18,6 @@ public class EnemyBase : MonoBehaviour
 {
     [ContextMenu("Force To Chase")]
     public void ForceChase() => SwitchState(EnemyStateType.Chase);
-
 
     public EnemyStateType currentStateType;
     private IEnemyState currentState;
@@ -68,7 +68,7 @@ public class EnemyBase : MonoBehaviour
 
     public float GetDistanceToPlayer()
     {
-        return Vector2.Distance(transform.position, player.position); 
+        return Vector2.Distance(transform.position, player.position);
     }
 
     #region Debug
@@ -90,7 +90,9 @@ public class EnemyBase : MonoBehaviour
     [ContextMenu("Force To Attack")]
     public void Debug_ForceAttack() => SwitchState(EnemyStateType.Attack);
     #endregion
+
     #region Draw Scene View Only
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (player == null) return;
@@ -111,6 +113,7 @@ public class EnemyBase : MonoBehaviour
         Handles.color = Color.red;
         Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
     }
+#endif
     #endregion
 
     // »ç¿îµå

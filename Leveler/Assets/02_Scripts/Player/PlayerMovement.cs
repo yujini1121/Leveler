@@ -34,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
         moveInput = new Vector2(moveX, 0f).normalized;
 
         // 바닥 체크
-        Debug.Log(isGrounded);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // 점프 입력
